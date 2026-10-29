@@ -152,7 +152,7 @@ export default function AssignedTickets() {
   const fetchTickets = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5001/api/tickets", {
+      const res = await axios.get("/api/tickets", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const all = res.data || [];
@@ -182,7 +182,7 @@ export default function AssignedTickets() {
   const refreshSelectedTicket = async () => {
     if (!selected) return;
     try {
-      const res = await axios.get(`http://localhost:5001/api/tickets/${selected._id}`, {
+      const res = await axios.get(`/api/tickets/${selected._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSelected(res.data); // Update in background
@@ -193,7 +193,7 @@ export default function AssignedTickets() {
 
   // open ticket detail (CHANGED: use toast.promise)
   const openTicket = async (ticket) => {
-    const fetchPromise = axios.get(`http://localhost:5001/api/tickets/${ticket._id}`, {
+    const fetchPromise = axios.get(`/api/tickets/${ticket._id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -222,7 +222,7 @@ export default function AssignedTickets() {
     if (!selected) return;
 
     const updatePromise = axios.put(
-      `http://localhost:5001/api/tickets/${selected._id}`,
+      `/api/tickets/${selected._id}`,
       { status: newStatus },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -245,7 +245,7 @@ export default function AssignedTickets() {
     if (!internalNote.trim()) return toast.error("Enter a note");
 
     const notePromise = axios.put(
-      `http://localhost:5001/api/tickets/${selected._id}`,
+      `/api/tickets/${selected._id}`,
       { meta: { internalNote: internalNote.trim() } },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -271,7 +271,7 @@ export default function AssignedTickets() {
     const to = selected.customerId?.email || selected.customer?.email;
 
     const emailPromise = axios.post(
-      "http://localhost:5001/api/notifications/email",
+      "/api/notifications/email",
       {
         to,
         subject: emailForm.subject,
@@ -299,7 +299,7 @@ export default function AssignedTickets() {
     if (!smsText.trim()) return toast.error("Write an SMS message first");
 
     const logPromise = axios.post(
-      `http://localhost:5001/api/customers/${selected.customerId?._id || selected.customer?._id}/engagement`,
+      `/api/customers/${selected.customerId?._id || selected.customer?._id}/engagement`,
       { at: new Date(), summary: `SMS Sent: ${smsText}`, type: "sms", ticketId: selected._id },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -322,7 +322,7 @@ export default function AssignedTickets() {
     if (!phone) return toast.error("Customer has no phone");
 
     const logPromise = axios.post(
-      `http://localhost:5001/api/customers/${selected.customerId?._id || selected.customer?._id}/engagement`,
+      `/api/customers/${selected.customerId?._id || selected.customer?._id}/engagement`,
       { at: new Date(), summary: `Call placed`, type: "call", ticketId: selected._id },
       { headers: { Authorization: `Bearer ${token}` } }
     );

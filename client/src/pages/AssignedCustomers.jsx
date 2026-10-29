@@ -89,7 +89,7 @@ export default function AssignedCustomers() {
   const fetchCustomers = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5001/api/customers/assigned", {
+      const res = await axios.get("/api/customers/assigned", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCustomers(res.data);
@@ -108,7 +108,7 @@ export default function AssignedCustomers() {
   const openCustomer = async (c) => {
     // fetch full customer details (including engagementHistory)
     // CHANGED: Use toast.promise for loading feedback
-    const fetchPromise = axios.get(`http://localhost:5001/api/customers/${c._id}`, {
+    const fetchPromise = axios.get(`/api/customers/${c._id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -137,7 +137,7 @@ export default function AssignedCustomers() {
   const refreshSelectedCustomer = async () => {
     if (!selected) return;
     try {
-      const res = await axios.get(`http://localhost:5001/api/customers/${selected._id}`, {
+      const res = await axios.get(`/api/customers/${selected._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSelected(res.data); // Update in background
@@ -153,7 +153,7 @@ export default function AssignedCustomers() {
     }
 
     const emailPromise = axios.post(
-      "http://localhost:5001/api/notifications/email",
+      "/api/notifications/email",
       {
         to: selected.email,
         subject: emailForm.subject,
@@ -180,7 +180,7 @@ export default function AssignedCustomers() {
 
     // We only log the *intent* to send SMS, as the `sms:` protocol is a handoff
     const logPromise = axios.post(
-      `http://localhost:5001/api/customers/${selected._id}/engagement`,
+      `/api/customers/${selected._id}/engagement`,
       { at: new Date(), summary: `SMS Sent: ${smsText}`, type: "sms" },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -201,7 +201,7 @@ export default function AssignedCustomers() {
   const handleCallLog = async () => {
     // This just logs the call. The actual call is made by the <a> tag's tel: href
     const logPromise = axios.post(
-      `http://localhost:5001/api/customers/${selected._id}/engagement`,
+      `/api/customers/${selected._id}/engagement`,
       { at: new Date(), summary: `Call Placed`, type: "call" },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -222,7 +222,7 @@ export default function AssignedCustomers() {
     }
 
     const addPromise = axios.post(
-      `http://localhost:5001/api/customers/${selected._id}/engagement`,
+      `/api/customers/${selected._id}/engagement`,
       { at: engagementWhen, summary: engagementNote, type: "note" },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -409,7 +409,7 @@ export default function AssignedCustomers() {
                     <button
                       onClick={async () => {
                         const updatePromise = axios.put(
-                          `http://localhost:5001/api/customers/${selected._id}`,
+                          `/api/customers/${selected._id}`,
                           { loyaltyPoints: selected.loyaltyPoints },
                           { headers: { Authorization: `Bearer ${token}` } }
                         );

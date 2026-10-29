@@ -69,7 +69,7 @@ export default function CompanyProfile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/company/profile", {
+      .get("/api/company/profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setCompany(res.data))
@@ -101,7 +101,7 @@ export default function CompanyProfile() {
   const saveChanges = () => {
     setIsSaving(true);
     axios
-      .put("http://localhost:5001/api/company/profile", company, {
+      .put("/api/company/profile", company, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => toast.success("Company updated successfully"))

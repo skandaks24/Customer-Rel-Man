@@ -11,7 +11,7 @@ export default function ApprovedCompanies() {
 
   const fetchApprovedCompanies = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5001/api/admin/approved-companies");
+      const { data } = await axios.get("/api/admin/approved-companies");
       setCompanies(data);
     } catch (err) {
       console.error("Error fetching approved companies:", err);

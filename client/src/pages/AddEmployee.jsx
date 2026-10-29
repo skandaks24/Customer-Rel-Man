@@ -98,7 +98,7 @@ export default function AddEmployee() {
   const fetchEmployees = async () => {
     if (!companyId) return;
     try {
-      const res = await axios.get(`http://localhost:5001/api/employees`, {
+      const res = await axios.get(`/api/employees`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEmployees(res.data);
@@ -125,7 +125,7 @@ export default function AddEmployee() {
       if (editingEmployee) {
         // Update existing employee
         const res = await axios.put(
-          `http://localhost:5001/api/employees/${editingEmployee._id}`,
+          `/api/employees/${editingEmployee._id}`,
           form,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -133,7 +133,7 @@ export default function AddEmployee() {
       } else {
         // Add new employee
         const res = await axios.post(
-          "http://localhost:5001/api/employees",
+          "/api/employees",
           { ...form, companyId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -163,7 +163,7 @@ export default function AddEmployee() {
   const handleToggleStatus = async (emp) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5001/api/employees/${emp._id}/status`,
+        `/api/employees/${emp._id}/status`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

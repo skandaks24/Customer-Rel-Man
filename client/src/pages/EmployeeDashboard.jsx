@@ -73,14 +73,14 @@ export default function EmployeeDashboard() {
   };
 
   const fetchStats = async () => {
-    const { data } = await axios.get("http://localhost:5001/api/employees/stats", {
+    const { data } = await axios.get("/api/employees/stats", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setStats(data);
   };
 
 const loadTasks = async () => {
-  const { data } = await axios.get("http://localhost:5001/api/tasks", {
+  const { data } = await axios.get("/api/tasks", {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -105,7 +105,7 @@ const addTask = async () => {
   dateTime.setHours(h, m, 0, 0); // local time
 
   const taskPromise = axios.post(
-    "http://localhost:5001/api/tasks",
+    "/api/tasks",
     { title: form.title, note: form.note, dateTime },
     { headers: { Authorization: `Bearer ${token}` } }
   );
@@ -125,7 +125,7 @@ const addTask = async () => {
 const handleToggleComplete = async (task) => {
   try {
     await axios.put(
-      `http://localhost:5001/api/tasks/${task._id}`,
+      `/api/tasks/${task._id}`,
       { completed: !task.completed },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -140,7 +140,7 @@ const handleToggleComplete = async (task) => {
 const handleDeleteTask = async (id) => {
   if (!window.confirm("Are you sure you want to delete this task?")) return;
   try {
-    await axios.delete(`http://localhost:5001/api/tasks/${id}`, {
+    await axios.delete(`/api/tasks/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     await loadTasks();

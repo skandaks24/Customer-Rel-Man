@@ -7,7 +7,7 @@ import { FiPlus, FiX, FiActivity, FiEdit, FiEye } from "react-icons/fi";
 export default function Tickets() {
   const token = localStorage.getItem("token");
   const api = axios.create({
-    baseURL: "http://localhost:5001/api",
+    baseURL: "/api",
     headers: { Authorization: `Bearer ${token}` },
   });
 

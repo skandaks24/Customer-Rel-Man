@@ -20,7 +20,7 @@ const handleLogin = async (e) => {
   setLoading(true);
 
   try {
-    const { data } = await axios.post("http://localhost:5001/api/auth/employee", {
+    const { data } = await axios.post("/api/auth/employee", {
       email,
       password,
     });

@@ -19,7 +19,13 @@ connectDB();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// Allow requests from the Netlify frontend in production, or any origin in dev
+const corsOptions = {
+  origin: process.env.CLIENT_URL || "*",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/company", companyRoutes);

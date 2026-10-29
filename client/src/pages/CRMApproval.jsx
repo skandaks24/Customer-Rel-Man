@@ -11,7 +11,7 @@ export default function CRMApproval() {
 
   const fetchPendingCompanies = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5001/api/admin/pending-companies");
+      const { data } = await axios.get("/api/admin/pending-companies");
       setCompanies(data);
     } catch (err) {
       console.error("Error fetching companies:", err);
@@ -20,7 +20,7 @@ export default function CRMApproval() {
 
   const handleApproval = async (companyId, status) => {
     try {
-      await axios.post(`http://localhost:5001/api/admin/approve-company/${companyId}`, { status });
+      await axios.post(`/api/admin/approve-company/${companyId}`, { status });
       fetchPendingCompanies();
       alert(`Company ${status} successfully`);
     } catch (err) {

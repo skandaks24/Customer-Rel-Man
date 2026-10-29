@@ -42,7 +42,7 @@ export default function CRMDashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/company/stats", {
+      .get("/api/company/stats", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setStats(res.data))

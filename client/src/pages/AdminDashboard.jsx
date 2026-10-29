@@ -12,7 +12,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5001/api/admin/stats");
+        const { data } = await axios.get("/api/admin/stats");
         setStats(data);
       } catch (err) {
         console.error("Error fetching stats:", err);

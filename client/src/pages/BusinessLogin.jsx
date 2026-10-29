@@ -23,7 +23,7 @@ export default function BusinessLogin() {
     setLoading(true); // --- ENHANCEMENT: Set loading true
     setError(""); // --- ENHANCEMENT: Clear previous errors
     try {
-      const res = await axios.post("http://localhost:5001/api/auth/login", {
+      const res = await axios.post("/api/auth/login", {
         email,
         password,
       });

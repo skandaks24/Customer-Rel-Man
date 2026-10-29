@@ -72,7 +72,7 @@ export default function CompanyRegister() {
     setLoading(true);
 
     const promise = axios.post(
-      "http://localhost:5001/api/company/register",
+      "/api/company/register",
       formData
     );
 
